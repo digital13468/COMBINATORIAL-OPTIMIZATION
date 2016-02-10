@@ -1,0 +1,126 @@
+\documentclass[11pt]{article}
+\usepackage{pictex, latexsym, graphicx,amsmath,amssymb,amsbsy,amsfonts,amsthm,verbatim}
+\usepackage{fullpage,hyperref}
+\setlength{\parindent}{0em}
+
+\def\vx{\mathbf{x}}
+\def\vc{\mathbf{c}}
+\def\vb{\mathbf{b}}
+\def\vy{\mathbf{y}}
+
+\begin{document}
+
+\thispagestyle{empty}
+\title{\begin{center}
+\textbf{\
+\Large Maximum or Minimum Perfect Matchings in Bipartite Graphs
+}
+\end{center}}
+\author{
+Chan-Ching Hsu\\
+\texttt{cchsu@iastate.edu}
+}
+%\date{\today}
+\maketitle
+\vspace{1em}
+\textbf{\large Problem: Maximum or Minimum Perfect Matchings in Bipartite Graphs}
+
+
+\section{Problem}
+In these report we consider the following problem essentially:
+
+\textbf{Maximum Weight Bipartite Matching} \emph{Given a bipartite graph} $G=(V,E)$ \emph{bipartite} (X,Y) \emph{and weight function} $w:E\rightarrow\mathbb{R}$ \emph{find a matching of maximum weight where the weight of matching of matching M is given by} $w(M)=\sum_{e\in M}{w(e)}$.%The way to produce dual solution was I first transfer dual problem from the given primal problem and then solve the converted dual problem by using CPLEX~\cite{CPLEX}. For the problem having integer-values variables, CPLEX requires to specify the variable type by using the keyword, 'general' so that those specified variables can have integer values in the solution.
+
+In the maximum weighted matching problem a non-negative weight $w_{i,j}$ is assigned to each edge $x_iy_j$ of $W_{w,w}$ and we seek a perfect matching $M$ to maximize the total weight $w(M)=\sum_{e\in M}{w(e)}$. With these weights, a (weighted) cover is a choice of labels $u_1,\ldots,u_w$ and $v_1,\ldots,v_w$, such that $u_i+v_j\geq w_{i,j}$ for all $i,j$. The cost $c(u,v)$ of a cover $(u,v)$ is $\sum{u_i}+\sum{v_j}$. The minimum weighted cover problem is that of finding a cover of minimum cost.
+
+The equality subgraph $G_{u,v}$ for a weighted cover $(u,v)$ is the spanning subgraph of $W_{w,w}$ whose edges are the pairs $x_iy_j$ such that $u_i+v_j=w_{i,j}$. In the cover, the excess for $i,j$ is $u_i+v_j-w_{i,j}$.
+
+
+
+\section{Implementation}
+I ran everything on one of the servers, \texttt{linux-5.ece.iastate.edu}~\cite{Servers}, which is a Linux platform available to engineering students in ISU. I implemented the augmenting path algorithm for for maximum matching in unweighted bipartite graphs and the Hungarian algorithm for maximum weighted perfect matchings in bipartite graphs. A part of the outputs includes the minimum-weight vertex cover for given problems. As required, I also built a method for solving the minimum weight perfect matching problem for bipartite graphs. The way I did is programming a reduction to the maximum weighted perfect matching problem, additionally, with a maximum-weight vertex under-cover presented for the proof by duality.%with the idea of Depth-first search (DFS) instead of Breadth-first search. A recursive implementation of DFS was considered to discover a path from the resource node to the sink node. The pseudocode in the Wikipedia article on DFS~\cite{DFS} is able to provide with the basic idea of how our algorithm was developed. This is the base while we did not exactly following every step.%In order to address the problems with large size, programs were developed. By executing the programs, I can generate the primal and dual problems more efficiently. Those programs are able to build up models with given data for CPLEX to read and solve. As the problem size goes up, the solution will contain more variables, which also is dealt with by the designed program. CPLEX was fed into both modeled primal and dual problems, including the integer problems.
+
+Those programs were developed with C~\cite{C} programming language. To run our algorithms on a bipartite graph, a square weight matrix $\mathcal{W}$, and the size of this square matrix $w$ are given. For the maximum perfect matching, the first step is to construct the initial excess matrix, accompany with arrays $\mathcal{U}$ and $\mathcal{V}$. For every row in $\mathcal{W}$, every element is subtracted from the largest number in that row to form the initialized excess matrix, $\mathbf{E}$. With $\mathbf{E}$, an unweighted bipartite graph, $\mathbf{B}$, is built. Here, each edge is indicated by the 0's in $\mathbf{E}$. Based on $\mathbf{E}$, starting from the first row, I match the node, if any, with the first 0 found by looking at every column.
+
+The algorithm for finding an \emph{M}-augmenting path in an unweighted bipartite graph performs next. If no augmenting paths exist, the (unweigthed) vertex cover, $\mathcal{R}$ and $\mathcal{T}$, can be found and the size should be the same with the (unweigther) matching, \emph{m}. If an augmenting path is found, \emph{m} will be updated and the procedure of finding augmenting paths will perform again. With the information of the (unweighted) vertex cover, the value of $\varepsilon$ is obtained by finding the smallest elements in $\mathbf{E}$ but not in either $\mathcal{R}$ nor $\mathcal{T}$.
+
+$\mathbf{E}$, $\mathcal{U}$ and $\mathcal{V}$ are updated accordingly in the manner of 1. for the nodes in $\mathcal{R}$ and $\mathcal{T}$, the corresponding elements in $\mathbf{E}$ are increased by $\varepsilon$, 2. for the nodes not either in $\mathcal{R}$ or $\mathcal{T}$, the corresponding elements in $\mathbf{E}$ are decreased by $\varepsilon$, 3. for the nodes in $\mathcal{T}$, the corresponding elements in $\mathcal{V}$ are increased by $\varepsilon$, and 4. for the nodes not in $\mathcal{R}$, the corresponding elements in $\mathcal{U}$ are decreased by $\varepsilon$. %\emph{s} would be given.
+
+This completes the first iteration of the Hungarian algorithm. At this point, the current matching is stored as \emph{m} is found, the current (weight) vertex cover is stored as $\mathcal{U}$ and $\mathcal{V}$, and the current excess matrix is stored as $\mathbf{E}$. If \emph{m} is a perfect matching, the maximum perfect matching and minimum vertex cover will be output; otherwise, the procedure of the Hungarian approach will continue with the current information.%is taken to construct the flow network by assigning non-zero values and zero to the corresponding edges. The function of \texttt{Augmentation} returns a path \emph{P} which has been found by iteratively performing the function \texttt{NextVertex} to discover and explore the neighboring nodes till \emph{s} is reached or no path can be found. The path \emph{P} is an ordered list of the vertices in an \emph{rs-path}.%The most challenging task during the implementation is to write the code and to verify the accuracy of the results and output, since this was time-consuming.
+
+For $\mathbf{B}$ with given \emph{m}, to find an \emph{M}-augmenting path, the augmenting path algorithm is implemented. First, all the unmated nodes from $\mathcal{U}$ are put into $\mathcal{\bar{R}}$. Starting from $x\in\bar{R}$, the algorithm puts $y\in Y$ into $\mathcal{T}$ that having edges to $x$ if $y$ has not been visited, then putting $x\not\in\mathcal{\bar{R}}$ having edges to $y$ into $\mathcal{\bar{R}}$ if $x\in X$ has not been visited. Then the unmated $x$ is marked as explored. The procedure will goes through other unexplored $x\in\mathcal{\bar{R}}$ with the same actions till an augmenting path is found or there is no unexplored $x$. The predecessors, if applicable, are stored as the algorithm goes on. Once it finds a $y$ from $x\in\mathcal{\bar{R}}$ with no matched edge incident to other $x$, then an augmenting path is found. All the matchings along this newly found path will be alternated by following the predecessor information.% DFS algorithm also help us to extract the minimum cut when no augmenting path exists. \emph{C} continues to be updated until there is no node can be reached by the exiting nodes in $\mathcal{R}$. The definition of \emph{C} is equal to the $\mathcal{R}$ mentioned in class. Consequentially, the minimum capacity \emph{minCut} can be obtained after we have the complete \emph{C}. On the other hand, the maximum flow value \emph{maxFlow} is updated as long as a new augmenting path is found. Throughout the implementation, it mostly challenged me whether the program was developed carefully and correctly. Starting from the first two simpler instances, I actually spent a lot of time on figuring out the conditions which should have been examined.
+
+For the minimum-weight perfect matching problem, I perform the reduction to the maximum weighted perfect matching problem. The given weight matrix (originally $\mathcal{W}$) now is denoted as $\mathcal{W'}$. The reduction is performed in the following way, the largest number in $\mathcal{W'}$ is discovered first, $a$; then every element in $\mathcal{W'}$ is subtracted from $a$ to get $\mathcal{W}$ for the developed Hungarian procedure. Next, the maximum perfect matching is able to be disclosed by running the Hungarian program with input $\mathcal{W}$. After reaching the maximum perfect matching, \emph{M}, we can translate \emph{M} to the minimum perfect matching by computing $|M'|=w*a-|M|$, which can also be concluded by summing the weights of the matchings based on \emph{M} or \emph{M'}. The duality comes from computing $\sum{{a-u_i}-v_j}$, where $u_i\in\mathcal{U}, v_i\in\mathcal{V}$.
+
+I didn't encounter a big challenge during my implementation. I would say these algorithms are well developed for the matching problems and easy to implement for practical use. I started the implementation from programming maximum matching in unweighted bipartite graph and then the Hungarian algorithm for maximum weighted perfect matchings in bipartite graphs, followed by realizing method for solving the minimum-weight perfect matching problem. All details can be supplied by request regarding the code of the implementation.
+\section{Solutions}
+
+I now discuss our solutions to the given problem instances. It has been verified that for the maximum weighted perfect matching problems, the value of matching is equal to that of vertex cover; for the minimum weighted perfect matching problems, the value of matching is equal to that of vertex under-cover.
+
+\subsection{Instance I1}
+%Instance I1 is small enough that we were able to find the solution by hand. We used this as the very first case to verify our algorithm.
+The six problems in homework 4 were processed as input to our algorithm to demonstrate the algorithm is able to work correctly.% for each case.%The primal problem of Instance I1 with real variables was constructed, following the form which is readable for CPLEX. Also, the dual problem was formulated by hand and then fed into CPLEX for the optimality. Both solutions produce the same objective value, which means -2 is the optimal value for sure. Furthermore, for the primal problem with integer variables, although the objective value is -2 as well, the values of $x_1$ and $x_2$ vary. This gives us the knowledge that the linear primal problem has multiple solutions.
+
+\begin{verbatim}
+Maximum weighted perfect matching: 82
+Minimum-weight vertex cover: 82
+Minimum weighted perfect matching: 9
+Maximum-weight vertex under-cover: 9
+\end{verbatim}
+%$\mathcal{R}=\{0,2\},$
+%$\mathcal{\overline{R}}=\{1,3,4,5,6,7\}$ with $\mid\mathcal{R}\mid=2,\,\mid\mathcal{\overline{R}}\mid=6$.
+
+
+
+\subsection{Instance I2}
+Due to the space limit, the matched pairs for both problems (maximum and minimum weight perfect matching) are omitted but can be provided by request.%The instance although is a slightly larger case than the previous case, still, it doesn't introduce too much trouble for obtaining the a solution manually. %To further validate the algorithm, the source and sink nodes in I1 and I2 were randomly chosen and the solutions were confirmed.%This instance does have optimal solutions to both integer- and real-variable problems, although the optimal values differ. The difference between the two solutions is close, which demonstrates the situation that a problem might be able to be relaxed in order to search for the suboptimal solutions close to the upperbound or lowerbound. As a matter of fact, it's not difficult to anticipate that the optimal points for each variable is $\frac{2}{3}$ as the special structure of the problem. However, it's not so easy when it comes to the integer problem.
+
+
+
+\begin{verbatim}
+Maximum weighted perfect matching: 265
+Minimum-weight vertex cover: 265
+Minimum weighted perfect matching: 31
+Maximum-weight vertex under-cover: 31
+\end{verbatim}
+%$\mathcal{R}=\{0,1,2,6,7,8,12,13,18,19\},$
+%$\mathcal{\overline{R}}=\{3,4,5,9,10,11,14,15,16,17,20,21,22,23\}$ with $\mid\mathcal{R}\mid=10,\,\mid\mathcal{\overline{R}}\mid=14$.
+
+\subsection{Instance I3}
+This instance provides a neat problem size to test our algorithm with 100*100 matrix size. I was able to discover a few minor defects corrected later by taking I3. For example, after not getting matched matching and vertex cover values, I tracked back the excess matrices and epsilon values iteration by iteration, and was able to realize the arrays of $u$ and $v$ (denoted as in class and videos) were not increased and decreased by a right epsilon number accordingly, which was fixed immediately.%Similarly, the primal solution and dual solution offer the same optimal value. For this instance, a program was designed for generating both the primal linear model and the dual problem with the given matrix and vectors built in. Although the problem size is bigger than I1 and I2, it's still readable and countable by hand; therefore, I didn't measure the size by program as in the next instance.
+
+\begin{verbatim}
+Maximum weighted perfect matching: 4864
+Minimum-weight vertex cover: 4864
+Minimum weighted perfect matching: 39
+Maximum-weight vertex under-cover: 39
+\end{verbatim}
+%$\mathcal{R}=\{0,2,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19,20,22,26,28,29,30,31,34,35,36,37,38,39,\\40,42,43,44,45,52,53,54,60,62,63,64,66,68,69,70,72,73,74,75,77,78,79,81,84,85,88,90,93,\\95,96,97,99\},\\$
+%$\mathcal{\overline{R}}=\{1,3,10,21,23,24,25,27,32,33,41,46,47,48,49,50,51,55,56,57,58,59,61,65,67,71,76,80,\\82,83,86,87,89,91,92,94,98\}$ with $\mid\mathcal{R}\mid=63,\,\mid\mathcal{\overline{R}}\mid=37$.
+
+
+\subsection{Instance I4}
+The last instance can be seen as a large case which requires apparently much more computational time to solve the problem as the size of the problem increases. The first I saw the results was surprised since those resulting numbers look nice and perfect. Then I started to retrieve each matching in the solution to see whether every selected edge had the weight of 99 for maximum perfect matching (99*1000) and the weight of 0 for minimum one (0*1000). And it turned out those numbers are generated appropriately.%The solutions provide the same objective value. As the matrix $A$, and vectors $c$ and $b$ of I4 are not pleasant if dealt with by hand, I developed programs with the matrix as well as vectors embedded, to generate the primal linear programs in the canonical form and produce dual linear program, and to reorganize the solution vectors for the purpose of displaying optimal points nicely as below.
+\begin{verbatim}
+Maximum weighted perfect matching: 99000
+Minimum-weight vertex cover: 99000
+Minimum weighted perfect matching: 0
+Maximum-weight vertex under-cover: 0
+\end{verbatim}
+%$\mathcal{R}=\{127\},\,\mathcal{\overline{R}}=\mathcal{V}\setminus\mathcal{R}$ with $\mid\mathcal{R}\mid=1,\,\mid\mathcal{\overline{R}}\mid=499$.
+
+
+\begin{thebibliography}\frenchspacing
+{
+
+\small
+%\bibitem{CPLEX} IBM ILOG CPLEX Optimizer, \url{http://www-01.ibm.com/software/commerce/optimization/cplex-optimizer/}
+
+%\bibitem{DFS} Depth-first search, \textit{Wikipedia}, \url{http://en.wikipedia.org/wiki/Depth-first_search)}
+\bibitem{Servers} Linux Servers in College of Engineering, Iowa State University, \url{http://it.engineering.iastate.edu/remote/}
+
+\bibitem{C} C Programming Language, \textit{Wikipedia}, \url{http://en.wikipedia.org/wiki/C_(programming_language)}
+
+}
+\end{thebibliography}
+\end{document} 
