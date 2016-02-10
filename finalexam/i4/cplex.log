@@ -1,0 +1,289 @@
+
+Log started (V12.5.0.0) Fri Dec 20 01:12:10 2013
+
+
+Problem 'I4.txt' read.
+Read time = 0.02 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve modified 3 coefficients.
+Reduced MIP has 6 rows, 6 columns, and 18 nonzeros.
+Reduced MIP has 0 binaries, 6 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Found incumbent of value 8.000000 after 0.00 sec. (0.02 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.01 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                            8.0000        0.0000        3  100.00%
+*     0     0      integral     0        5.0000        5.0000        3    0.00%
+Elapsed time = 0.01 sec. (0.05 ticks, tree = 0.00 MB, solutions = 2)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.02 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.02 ticks)
+
+Solution pool: 2 solutions saved.
+
+MIP - Integer optimal solution:  Objective =  5.0000000000e+00
+Solution time =    0.01 sec.  Iterations = 3  Nodes = 0
+Deterministic time = 0.05 ticks  (7.08 ticks/sec)
+
+
+Incumbent solution
+Variable Name           Solution Value
+x0                            1.000000
+x3                            1.000000
+x5                            1.000000
+All other variables matching '*' are 0.
+
+Problem 'I4step0.txt' read.
+Read time = 0.02 sec. (0.00 ticks)
+Tried aggregator 1 time.
+LP Presolve eliminated 10 rows and 0 columns.
+Reduced LP has 6 rows, 6 columns, and 18 nonzeros.
+Presolve time = 0.00 sec. (0.01 ticks)
+
+Iteration log . . .
+Iteration:     1   Dual objective     =             4.000000
+
+Dual simplex - Optimal:  Objective =  5.0000000000e+00
+Solution time =    0.00 sec.  Iterations = 4 (0)
+Deterministic time = 0.02 ticks  (11.08 ticks/sec)
+
+
+Variable Name           Solution Value
+x0                            1.000000
+x3                            1.000000
+x5                            1.000000
+All other variables matching '*' are 0.
+
+Problem 'I4step0.txt' read.
+Read time = 0.01 sec. (0.00 ticks)
+Tried aggregator 1 time.
+No LP presolve or aggregator reductions.
+Presolve time = 0.00 sec. (0.00 ticks)
+
+Iteration log . . .
+Iteration:     1   Dual objective     =             4.000000
+
+Dual simplex - Optimal:  Objective =  5.0000000000e+00
+Solution time =    0.00 sec.  Iterations = 4 (0)
+Deterministic time = 0.01 ticks  (8.72 ticks/sec)
+
+
+Problem 'I4step0.txt' read.
+Read time = 0.01 sec. (0.00 ticks)
+Tried aggregator 1 time.
+LP Presolve eliminated 0 rows and 1 columns.
+Reduced LP has 6 rows, 5 columns, and 17 nonzeros.
+Presolve time = 0.00 sec. (0.01 ticks)
+
+Iteration log . . .
+Iteration:     1   Dual objective     =             3.000000
+
+Dual simplex - Optimal:  Objective =  5.0000000000e+00
+Solution time =    0.00 sec.  Iterations = 3 (0)
+Deterministic time = 0.01 ticks  (12.03 ticks/sec)
+
+
+Variable Name           Solution Value
+x0                            1.500000
+x3                            0.500000
+x5                            0.750000
+All other variables matching '*' are 0.
+
+Problem 'I4step1.txt' read.
+Read time = 0.01 sec. (0.00 ticks)
+Tried aggregator 1 time.
+LP Presolve eliminated 1 rows and 1 columns.
+Reduced LP has 6 rows, 5 columns, and 13 nonzeros.
+Presolve time = 0.00 sec. (0.00 ticks)
+
+Iteration log . . .
+Iteration:     1   Dual objective     =             3.000000
+
+Dual simplex - Optimal:  Objective =  6.0000000000e+00
+Solution time =    0.00 sec.  Iterations = 4 (0)
+Deterministic time = 0.01 ticks  (12.37 ticks/sec)
+
+
+Variable Name           Solution Value
+x0                            2.000000
+x1                            1.000000
+x5                            0.500000
+All other variables matching '*' are 0.
+
+Problem 'I4step2.txt' read.
+Read time = 0.01 sec. (0.00 ticks)
+Tried aggregator 1 time.
+LP Presolve eliminated 6 rows and 3 columns.
+Reduced LP has 2 rows, 3 columns, and 4 nonzeros.
+Presolve time = 0.00 sec. (0.00 ticks)
+
+Iteration log . . .
+Iteration:     1   Dual objective     =             8.000000
+
+Dual simplex - Optimal:  Objective =  8.0000000000e+00
+Solution time =    0.00 sec.  Iterations = 2 (0)
+Deterministic time = 0.01 ticks  (8.59 ticks/sec)
+
+
+Log started (V12.5.0.0) Fri Dec 20 12:03:39 2013
+
+
+Problem 'I4step0.txt' read.
+Read time = 0.01 sec. (0.00 ticks)
+Tried aggregator 1 time.
+LP Presolve eliminated 0 rows and 1 columns.
+Reduced LP has 6 rows, 5 columns, and 17 nonzeros.
+Presolve time = 0.00 sec. (0.01 ticks)
+
+Iteration log . . .
+Iteration:     1   Dual objective     =             3.000000
+
+Dual simplex - Optimal:  Objective =  5.0000000000e+00
+Solution time =    0.00 sec.  Iterations = 3 (0)
+Deterministic time = 0.01 ticks  (12.03 ticks/sec)
+
+
+Variable Name           Solution Value
+x0                            1.500000
+x3                            0.500000
+x5                            0.750000
+All other variables matching '*' are 0.
+
+Problem 'I4step0.txt' read.
+Read time = 0.01 sec. (0.00 ticks)
+Tried aggregator 1 time.
+LP Presolve eliminated 18 rows and 6 columns.
+All rows and columns eliminated.
+Presolve time = 0.00 sec. (0.01 ticks)
+
+Dual simplex - Optimal:  Objective =  5.0000000000e+00
+Solution time =    0.00 sec.  Iterations = 0 (0)
+Deterministic time = 0.01 ticks  (14.06 ticks/sec)
+
+
+Variable Name           Solution Value
+x0                            1.000000
+x3                            1.000000
+x5                            1.000000
+All other variables matching '*' are 0.
+
+Problem 'I4step0.txt' read.
+Read time = 0.01 sec. (0.00 ticks)
+Tried aggregator 1 time.
+MIP Presolve modified 3 coefficients.
+Reduced MIP has 6 rows, 6 columns, and 18 nonzeros.
+Reduced MIP has 0 binaries, 6 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.01 ticks)
+Found incumbent of value 8.000000 after 0.00 sec. (0.02 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+Tried aggregator 1 time.
+Presolve time = 0.00 sec. (0.01 ticks)
+Probing time = 0.00 sec. (0.00 ticks)
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.01 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                            8.0000        0.0000        3  100.00%
+*     0     0      integral     0        5.0000        5.0000        3    0.00%
+Elapsed time = 0.00 sec. (0.05 ticks, tree = 0.00 MB, solutions = 2)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.02 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.02 ticks)
+
+Solution pool: 2 solutions saved.
+
+MIP - Integer optimal solution:  Objective =  5.0000000000e+00
+Solution time =    0.01 sec.  Iterations = 3  Nodes = 0
+Deterministic time = 0.05 ticks  (8.31 ticks/sec)
+
+
+Incumbent solution
+Variable Name           Solution Value
+x0                            1.000000
+x3                            1.000000
+x5                            1.000000
+All other variables matching '*' are 0.
+
+Problem 'I4step0.txt' read.
+Read time = 0.01 sec. (0.00 ticks)
+Tried aggregator 1 time.
+LP Presolve eliminated 0 rows and 1 columns.
+Reduced LP has 6 rows, 5 columns, and 17 nonzeros.
+Presolve time = 0.00 sec. (0.01 ticks)
+
+Iteration log . . .
+Iteration:     1   Dual objective     =             3.000000
+
+Dual simplex - Optimal:  Objective =  5.0000000000e+00
+Solution time =    0.00 sec.  Iterations = 3 (0)
+Deterministic time = 0.01 ticks  (12.03 ticks/sec)
+
+
+Variable Name           Solution Value
+x0                            1.500000
+x3                            0.500000
+x5                            0.750000
+All other variables matching '*' are 0.
+
+Problem 'I4step1.txt' read.
+Read time = 0.01 sec. (0.00 ticks)
+Tried aggregator 1 time.
+LP Presolve eliminated 1 rows and 1 columns.
+Reduced LP has 5 rows, 5 columns, and 14 nonzeros.
+Presolve time = 0.00 sec. (0.01 ticks)
+
+Iteration log . . .
+Iteration:     1   Dual objective     =             4.000000
+
+Dual simplex - Optimal:  Objective =  5.0000000000e+00
+Solution time =    0.00 sec.  Iterations = 2 (0)
+Deterministic time = 0.01 ticks  (10.87 ticks/sec)
+
+
+Variable Name           Solution Value
+x3                            2.000000
+x5                            1.500000
+All other variables matching '*' are 0.
+File 'I4step3.txt' not found.
+No file read.
+
+Problem 'I4step2.txt' read.
+Read time = 0.01 sec. (0.00 ticks)
+Tried aggregator 1 time.
+LP Presolve eliminated 2 rows and 2 columns.
+Reduced LP has 4 rows, 4 columns, and 10 nonzeros.
+Presolve time = 0.00 sec. (0.01 ticks)
+
+Iteration log . . .
+Iteration:     1   Dual objective     =             4.000000
+
+Dual simplex - Optimal:  Objective =  5.0000000000e+00
+Solution time =    0.00 sec.  Iterations = 2 (0)
+Deterministic time = 0.01 ticks  (11.12 ticks/sec)
+
